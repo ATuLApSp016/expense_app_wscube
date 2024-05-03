@@ -1,0 +1,40 @@
+
+import 'package:expense_app_wscube/data/repository/local/database_helper.dart';
+
+class UserModel {
+  int uid;
+  String uName;
+  String uEmail;
+  int uNumber;
+  String uPassword;
+
+  UserModel({
+    this.uid = 0,
+    required this.uName,
+    required this.uEmail,
+    required this.uNumber,
+    required this.uPassword,
+  });
+
+  ///
+  ///map to model
+
+  factory UserModel.fromMap(Map<String, dynamic> userMap) => UserModel(
+        uid: userMap[AppDatabase.USER_ID],
+        uName: userMap[AppDatabase.USER_NAME],
+        uEmail: userMap[AppDatabase.USER_EMAIL],
+        uNumber: userMap[AppDatabase.USER_NUMBER],
+        uPassword: userMap[AppDatabase.USER_PASSWORD],
+      );
+
+  ///
+  ///model to map
+  Map<String, dynamic> toMap() {
+    return {
+      AppDatabase.USER_NAME: uName,
+      AppDatabase.USER_EMAIL: uEmail,
+      AppDatabase.USER_NUMBER: uNumber,
+      AppDatabase.USER_PASSWORD: uPassword,
+    };
+  }
+}
