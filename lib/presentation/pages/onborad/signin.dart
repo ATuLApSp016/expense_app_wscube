@@ -1,3 +1,4 @@
+import 'package:expense_app_wscube/data/repository/local/database_helper.dart';
 import 'package:expense_app_wscube/domain/routes/app_routes.dart';
 import 'package:expense_app_wscube/domain/ui_helper/ui_helper.dart';
 import 'package:expense_app_wscube/domain/utils/app_colors.dart';
@@ -33,7 +34,8 @@ class _SignInPageState extends State<SignInPage> {
                     const SizedBox(height: 41),
                     InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.SPLASH_PAGE);
                       },
                       child: const SizedBox(
                         width: 38,
@@ -94,7 +96,7 @@ class _SignInPageState extends State<SignInPage> {
                 children: [
                   TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(
+                        Navigator.pushReplacementNamed(
                             context, AppRoutes.PASSWORDRECOVERY_PAGE);
                       },
                       child: Text(
@@ -112,8 +114,25 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(height: 21),
               ElevatedBTN(
                 cText: 'Login',
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, AppRoutes.HOME_BNB_PAGE);
+                onTap: () async {
+                  if (mailController.text.toString() != "" &&
+                      passController.text.toString() != "") {
+                    var db = AppDatabase.instance;
+                    var check = await db.loginUser(
+                        email: mailController.text.toString(),
+                        pass: passController.text.toString());
+
+                    if (check) {
+                      Navigator.pushReplacementNamed(
+                          context, AppRoutes.HOME_BNB_PAGE);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Invalid credentials!!')));
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Please enter mail and password')));
+                  }
                 },
               ),
               Divider(

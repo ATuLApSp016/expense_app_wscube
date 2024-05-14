@@ -20,8 +20,6 @@ class CTextWidget extends StatelessWidget {
   }
 }
 
-
-
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final String headTitle;
@@ -34,7 +32,8 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool? obscureText;
 
-  CustomTextField({super.key,
+  CustomTextField({
+    super.key,
     required this.hintText,
     required this.headTitle,
     this.prefixIconImage,
@@ -64,44 +63,43 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          SizedBox(
-            width: 345,
-            height: 56,
-            child: TextField(
-              keyboardType: keyType,
-              obscureText: obscureText!,
-              controller: controller,
-              decoration: InputDecoration(
-                hintText: hintText,
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(15),
+          TextField(
+            keyboardType: keyType,
+            obscureText: obscureText!,
+            controller: controller,
+            decoration: InputDecoration(
+              hintText: hintText,
+              prefixIcon: Visibility(
+                visible: prefixIconImage != null,
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
                   child: Image.asset(
-                    prefixIconImage!,
+                    prefixIconImage.toString(),
                     width: 10,
                     height: 8,
                     fit: BoxFit.fill,
                   ),
                 ),
-                suffixIcon: suffixIcon,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorsConstant.primary_Color, width: 1.5),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorsConstant.primary_Color, width: 1.5),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                filled: true,
-                fillColor: fillColor,
-                hintStyle: hintStyle,
-                suffixStyle: suffixStyle,
               ),
+              suffixIcon: suffixIcon,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: ColorsConstant.primary_Color, width: 1.5),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: ColorsConstant.primary_Color, width: 1.5),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              filled: true,
+              fillColor: fillColor,
+              hintStyle: hintStyle,
+              suffixStyle: suffixStyle,
             ),
           ),
         ],
@@ -117,7 +115,8 @@ class TextFieldWidget extends StatelessWidget {
   final TextStyle? hintStyle;
   final TextEditingController controller;
 
-  TextFieldWidget({super.key,
+  TextFieldWidget({
+    super.key,
     required this.hintText,
     required this.headTitle,
     this.fillColor,
@@ -142,33 +141,29 @@ class TextFieldWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          SizedBox(
-            width: 345,
-            height: 56,
-            child: TextField(
-              keyboardType: TextInputType.number,
-              controller: controller,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                hintText: hintText,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorsConstant.primary_Color, width: 1.5),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorsConstant.primary_Color, width: 1.5),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                filled: true,
-                fillColor: fillColor,
-                hintStyle: hintStyle,
+          TextField(
+            keyboardType: TextInputType.number,
+            controller: controller,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              hintText: hintText,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(16.0),
               ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: ColorsConstant.primary_Color, width: 1.5),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: ColorsConstant.primary_Color, width: 1.5),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              filled: true,
+              fillColor: fillColor,
+              hintStyle: hintStyle,
             ),
           ),
         ],
@@ -181,7 +176,7 @@ class CommonTIcon extends StatelessWidget {
   String title;
   String image;
   double? size;
-   CommonTIcon({super.key, required this.title, required this.image, this.size});
+  CommonTIcon({super.key, required this.title, required this.image, this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -196,8 +191,8 @@ class CommonTIcon extends StatelessWidget {
             fontSize: 34,
           ),
         ),
-        CircleAvatar(backgroundColor: Colors.transparent,
-
+        CircleAvatar(
+          backgroundColor: Colors.transparent,
           backgroundImage: AssetImage(image),
           radius: size,
         )

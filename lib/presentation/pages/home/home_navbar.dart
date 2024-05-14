@@ -1,8 +1,13 @@
+import 'package:expense_app_wscube/data/repository/local/database_helper.dart';
 import 'package:expense_app_wscube/domain/routes/app_routes.dart';
 import 'package:expense_app_wscube/domain/utils/app_colors.dart';
 import 'package:expense_app_wscube/domain/utils/app_images.dart';
+import 'package:expense_app_wscube/domain/widgets/button_widgets.dart';
+import 'package:expense_app_wscube/presentation/pages/home/add_expense.dart';
 import 'package:expense_app_wscube/presentation/pages/home/home_page.dart';
+import 'package:expense_app_wscube/presentation/pages/home/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBNB extends StatefulWidget {
   const HomeBNB({super.key});
@@ -19,31 +24,19 @@ class _HomeBNBState extends State<HomeBNB> {
     Container(
       color: Colors.orange.shade100,
       child: const Center(
-        child: Text('Account',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-      ),
-    ),
-    Container(
-      color: Colors.limeAccent.shade100,
-      child: const Center(
-        child: Text('add',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-      ),
-    ),
-    Container(
-      color: Colors.green.shade100,
-      child: const Center(
         child: Text('Explore',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
       ),
     ),
+    AddExpenseScreen(balance: 0),
     Container(
-      color: Colors.pink.shade100,
+      color: Colors.green.shade100,
       child: const Center(
         child: Text('Notification',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
       ),
     ),
+    ProfilePage(),
   ];
 
   @override
@@ -54,6 +47,7 @@ class _HomeBNBState extends State<HomeBNB> {
         unselectedItemColor: ColorsConstant.mainText_Color,
         selectedItemColor: ColorsConstant.primary_Color,
         currentIndex: selectedIndex,
+        elevation: 7,
         iconSize: 30,
         onTap: (value) {
           selectedIndex = value;
@@ -63,23 +57,23 @@ class _HomeBNBState extends State<HomeBNB> {
           BottomNavigationBarItem(
               icon: Image.asset(ImageConstant.ic_home,
                   width: 25, height: 25, fit: BoxFit.fill),
-              label: ''),
+              label: 'Home'),
           BottomNavigationBarItem(
               icon: Image.asset(ImageConstant.ic_graph,
                   width: 25, height: 25, fit: BoxFit.fill),
-              label: ''),
+              label: 'Explore'),
           BottomNavigationBarItem(
               icon: Image.asset(ImageConstant.ic_add,
                   width: 40, height: 40, fit: BoxFit.fill),
-              label: ''),
+              label: 'Add'),
           BottomNavigationBarItem(
               icon: Image.asset(ImageConstant.ic_notification,
                   width: 25, height: 25, fit: BoxFit.fill),
-              label: ''),
+              label: 'Notification'),
           BottomNavigationBarItem(
               icon: Image.asset(ImageConstant.ic_profile,
                   width: 25, height: 25, fit: BoxFit.fill),
-              label: ''),
+              label: 'Profile'),
         ],
       ),
     );

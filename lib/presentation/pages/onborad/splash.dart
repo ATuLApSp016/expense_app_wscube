@@ -1,9 +1,12 @@
+import 'package:expense_app_wscube/data/repository/local/database_helper.dart';
 import 'package:expense_app_wscube/domain/routes/app_routes.dart';
 import 'package:expense_app_wscube/domain/ui_helper/ui_helper.dart';
 import 'package:expense_app_wscube/domain/utils/app_colors.dart';
 import 'package:expense_app_wscube/domain/utils/app_images.dart';
 import 'package:expense_app_wscube/domain/widgets/button_widgets.dart';
+import 'package:expense_app_wscube/presentation/pages/onborad/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -13,6 +16,13 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkSignIN();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +82,7 @@ class _SplashPageState extends State<SplashPage> {
                     cText: 'Get Started',
                     onTap: () {
                       Navigator.pushReplacementNamed(
-                          context, AppRoutes.WELCOME_PAGE);
+                          context, AppRoutes.SIGNIN_PAGE);
                     },
                   ),
                 ],
@@ -82,5 +92,29 @@ class _SplashPageState extends State<SplashPage> {
         ],
       ),
     );
+  }
+
+  void checkSignIN() async {
+    var pref = await SharedPreferences.getInstance();
+    var signin = pref.getInt(AppDatabase.PRIMARY_KEY);
+    if (signin != null) {
+      if (signin > 0) {
+        Navigator.pushReplacementNamed(context, AppRoutes.HOME_BNB_PAGE);
+      } else {
+        Navigator.pushReplacementNamed(context, AppRoutes.SIGNIN_PAGE);
+      }
+    } else {
+      Navigator.pushReplacementNamed(context, AppRoutes.SIGNIN_PAGE);
+    }
+  }
+
+  void checkSignOut() async {
+    var pref = await SharedPreferences.getInstance();
+    var signOut = await pref.setBool(AppDatabase.SIGNOUT_KEY, true);
+    if (signOut) {
+      Navigator.pushReplacementNamed(context, AppRoutes.HOME_BNB_PAGE);
+    } else {
+      Navigator.pushReplacementNamed(context, AppRoutes.SIGNIN_PAGE);
+    }
   }
 }

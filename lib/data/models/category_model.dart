@@ -4,7 +4,7 @@ class CategoryModel {
   String catImg;
 
   CategoryModel({
-    this.catId = 0,
+    required this.catId,
     required this.catName,
     required this.catImg,
   });

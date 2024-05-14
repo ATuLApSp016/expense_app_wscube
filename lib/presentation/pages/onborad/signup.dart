@@ -1,3 +1,5 @@
+import 'package:expense_app_wscube/data/models/user_model.dart';
+import 'package:expense_app_wscube/data/repository/local/database_helper.dart';
 import 'package:expense_app_wscube/domain/routes/app_routes.dart';
 import 'package:expense_app_wscube/domain/ui_helper/ui_helper.dart';
 import 'package:expense_app_wscube/domain/utils/app_colors.dart';
@@ -16,6 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
   var mailController = TextEditingController();
   var nameController = TextEditingController();
   var passController = TextEditingController();
+  var numberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,19 +75,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               CustomTextField(
                 hintStyle: TextStyle(
-                  color: ColorsConstant.mainText_Color,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 16,
-                ),
-                prefixIconImage: ImageConstant.ic_mail,
-                fillColor: ColorsConstant.white_Color,
-                keyType: TextInputType.emailAddress,
-                controller: mailController,
-                hintText: 'Ex: abc@example.com',
-                headTitle: 'Email',
-              ),
-              CustomTextField(
-                hintStyle: TextStyle(
                   fontSize: 16,
                   fontStyle: FontStyle.italic,
                   color: ColorsConstant.mainText_Color,
@@ -95,6 +85,32 @@ class _SignUpPageState extends State<SignUpPage> {
                 controller: nameController,
                 hintText: 'Ex: Saul Ramirez',
                 headTitle: 'Your Name',
+              ),
+              CustomTextField(
+                hintStyle: TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                  color: ColorsConstant.mainText_Color,
+                ),
+                prefixIconImage: ImageConstant.ic_contact,
+                fillColor: ColorsConstant.white_Color,
+                keyType: TextInputType.number,
+                controller: numberController,
+                hintText: 'Ex: XXXXX-XXXXX',
+                headTitle: 'Your Number',
+              ),
+              CustomTextField(
+                hintStyle: TextStyle(
+                  color: ColorsConstant.mainText_Color,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16,
+                ),
+                prefixIconImage: ImageConstant.ic_mail,
+                fillColor: ColorsConstant.white_Color,
+                keyType: TextInputType.emailAddress,
+                controller: mailController,
+                hintText: 'Ex: abc@example.com',
+                headTitle: 'Email',
               ),
               CustomTextField(
                 hintStyle: TextStyle(
@@ -113,9 +129,31 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 41),
               ElevatedBTN(
                 cText: 'Register',
-                onTap: () {
-                  Navigator.pushReplacementNamed(
-                      context, AppRoutes.HOME_BNB_PAGE);
+                onTap: () async {
+                  var db = AppDatabase.instance;
+                  var check = await db.addNewUser(
+                    userModel: UserModel(
+                        uid: 0,
+                        uName: nameController.text.toString(),
+                        uEmail: mailController.text.toString(),
+                        uNumber: numberController.text.toString(),
+                        uPassword: passController.text.toString()),
+                  );
+
+                  if (check) {
+                    Navigator.pushReplacementNamed(
+                        context, AppRoutes.SIGNIN_PAGE);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: const Text('Email already registered!!'),
+                      action: SnackBarAction(
+                          label: 'Login Now',
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                                context, AppRoutes.SIGNIN_PAGE);
+                          }),
+                    ));
+                  }
                 },
               ),
               Padding(
@@ -133,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushReplacementNamed(context, AppRoutes.SIGNIN_PAGE);
                       },
                       child: CTextWidget(
                         cText: '\tLogin',

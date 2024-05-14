@@ -1,3 +1,4 @@
+import 'package:expense_app_wscube/presentation/pages/home/add_expense.dart';
 import 'package:expense_app_wscube/presentation/pages/home/home_navbar.dart';
 import 'package:expense_app_wscube/presentation/pages/home/home_page.dart';
 import 'package:expense_app_wscube/presentation/home_page.dart';
@@ -18,18 +19,17 @@ class AppRoutes {
   static const String PASSWORDRECOVERY_PAGE = '/passwordRecovery';
   static const String HOME_PAGE = '/home';
   static const String HOME_BNB_PAGE = '/homeBNB';
+  static const String ADD_EXPENSE = '/addExpense';
 
-
-  static Map<String, Widget Function(BuildContext)> routesMap() =>
-      {
+  static Map<String, Widget Function(BuildContext)> routesMap() => {
         AppRoutes.SPLASH_PAGE: (context) => const SplashPage(),
         AppRoutes.SIGNIN_PAGE: (context) => const SignInPage(),
         AppRoutes.SIGNUP_PAGE: (context) => const SignUpPage(),
-        AppRoutes.WELCOME_PAGE: (context) =>  const WelcomePage(),
-        AppRoutes.VERIFICATION_PAGE: (context) =>  const VerificationCode(),
-        AppRoutes.PASSWORDRECOVERY_PAGE: (context) =>  const ForgotPassword(),
-        AppRoutes.HOME_PAGE: (context) =>  HomePage(),
-        AppRoutes.HOME_BNB_PAGE: (context) =>  const HomeBNB(),
-
+        AppRoutes.WELCOME_PAGE: (context) => const WelcomePage(),
+        AppRoutes.VERIFICATION_PAGE: (context) => const VerificationCode(),
+        AppRoutes.PASSWORDRECOVERY_PAGE: (context) => const ForgotPassword(),
+        AppRoutes.HOME_PAGE: (context) => HomePage(),
+        AppRoutes.HOME_BNB_PAGE: (context) => const HomeBNB(),
+        AppRoutes.ADD_EXPENSE: (context) => AddExpenseScreen(balance: 0),
       };
 }

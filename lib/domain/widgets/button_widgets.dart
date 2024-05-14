@@ -13,7 +13,7 @@ class OutlineGoogleBTN extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 56,
-        width: 345,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: ColorsConstant.white_Color,
           borderRadius: BorderRadius.circular(16),
@@ -57,7 +57,7 @@ class OutlineEmailBTN extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 56,
-        width: 345,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: ColorsConstant.white_Color,
           borderRadius: BorderRadius.circular(16),
@@ -91,6 +91,48 @@ class OutlineEmailBTN extends StatelessWidget {
   }
 }
 
+class OutlineBTN extends StatelessWidget {
+  OutlineBTN({
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.mWidget,
+  });
+  VoidCallback onTap;
+  final String text;
+  Widget? mWidget;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 56,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(11),
+          border: Border.all(
+              width: 1.5, color: ColorsConstant.secondaryblack_Color),
+        ),
+        child: Center(
+          child: mWidget ??
+              CTextWidget(
+                cText: text,
+                cTextStyle: TextStyle(
+                  color: ColorsConstant.secondaryblack_Color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
 class ElevatedBTN extends StatelessWidget {
   String cText;
   VoidCallback onTap;
@@ -102,7 +144,7 @@ class ElevatedBTN extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 56,
-        width: 345,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: ColorsConstant.primary_Color,
           borderRadius: BorderRadius.circular(11),

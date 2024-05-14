@@ -1,15 +1,14 @@
-
 import 'package:expense_app_wscube/data/repository/local/database_helper.dart';
 
 class UserModel {
   int uid;
   String uName;
   String uEmail;
-  int uNumber;
+  String uNumber;
   String uPassword;
 
   UserModel({
-    this.uid = 0,
+    required this.uid,
     required this.uName,
     required this.uEmail,
     required this.uNumber,
