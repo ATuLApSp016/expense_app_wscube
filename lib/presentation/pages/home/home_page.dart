@@ -68,150 +68,155 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 11),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage:
-                        AssetImage('assets/images/profile_img.png'),
-                  ),
-                  SizedBox(width: 11),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  const Row(
                     children: [
-                      Text(
-                        'Morning',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 19,
-                        ),
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage:
+                            AssetImage('assets/images/profile_img.png'),
                       ),
-                      Text(
-                        'atul patel',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 17,
-                        ),
+                      SizedBox(width: 11),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Morning',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 19,
+                            ),
+                          ),
+                          Text(
+                            'atul patel',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(5),
-                    width: double.infinity,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: ColorsConstant.primary_Color,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: DropdownButton(
-                      dropdownColor: ColorsConstant.primary_Color,
-                      focusColor: Colors.white,
-                      value: selectedTransactionType,
-                      onChanged: (newValue) {
-                        if(newValue == 'This Month'){
-                          filterExpenseMonthWise(allExpenses: listExpenses);
-                        }else if(newValue == 'Date Wise'){
-                          filterExpenseDateWise(allExpenses: listExpenses);
-
-                        }
-                        setState(() {
-                          selectedTransactionType = newValue!;
-                        });
-                      },
-                      items: [
-                        'This Month',
-                        'This Year',
-                        'This Week',
-                        'Date Wise'
-                      ].map((type) {
-                        return DropdownMenuItem(
-                          value: type,
-                          child: Text(
-                            type,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        );
-                      }).toList(),
+                  FittedBox(
+                    child: Container(
+                      height: 35,
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: ColorsConstant.primary_Color,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: DropdownButton(
+                        dropdownColor: ColorsConstant.form_Color,
+                        focusColor: ColorsConstant.white_Color,
+                        value: selectedTransactionType,
+                        onChanged: (newValue) {
+                          if (newValue == 'This Month') {
+                            filterExpenseMonthWise(allExpenses: listExpenses);
+                          } else if (newValue == 'This Year') {
+                            filterExpenseYearWise(allExpenses: listExpenses);
+                          } else if (newValue == 'Date Wise') {
+                            filterExpenseDateWise(allExpenses: listExpenses);
+                          }
+                          setState(() {
+                            selectedTransactionType = newValue!;
+                          });
+                        },
+                        items: ['This Month','This Year', 'Date Wise'].map((type) {
+                          return DropdownMenuItem(
+                            value: type,
+                            child: Text(
+                              type,
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: ColorsConstant.black_Color),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 31),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    color: Colors.blueAccent.shade400),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.all(11),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const Text(
-                                'Expense total',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                  fontSize: 17,
-                                ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(11),
+                      color: Colors.blueAccent.shade400),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(11),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              'Expense total',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                                letterSpacing: 0.5,
+                                fontSize: 17,
                               ),
-                              const Text(
-                                '\$2,333',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 45,
-                                  color: Colors.white,
-                                  letterSpacing: 0.7,
-                                ),
+                            ),
+                            const Text(
+                              '\u{20B9}\t2,333',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 45,
+                                color: Colors.white,
+                                letterSpacing: 0.7,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Colors.red.shade400),
-                                    child: const Align(
-                                      child: Text(
-                                        '+\$240',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                        ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.red.shade400),
+                                  child: const Align(
+                                    child: Text(
+                                      '+\u{20B9}240',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                        fontSize: 15,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 2),
-                                  const Text(
-                                    'than last month',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white70,
-                                      letterSpacing: 0.7,
-                                      fontSize: 15,
-                                    ),
+                                ),
+                                const SizedBox(width: 2),
+                                const Text(
+                                  'than last month',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white70,
+                                    letterSpacing: 0.7,
+                                    fontSize: 15,
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )),
-                    Expanded(
-                      flex: 2,
-                      child: SizedBox(
-                        child: Image.asset(
-                          'assets/images/home_logo.png',
-                          fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                  ],
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                          child: Image.asset(
+                            'assets/images/home_logo.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 21),
@@ -228,6 +233,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 11),
               Expanded(
+                flex: 2,
                 child: BlocBuilder<ExpenseBloc, ExpenseState>(
                   builder: (_, state) {
                     if (state is ExpenseLoadingState) {
@@ -240,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     if (state is ExpenseLoadedState) {
-                     // filterExpenseDateWise(allExpenses: state.allExpense);
+                      // filterExpenseDateWise(allExpenses: state.allExpense);
                       listExpenses = state.allExpense;
                       return ListView.builder(
                           itemCount: listFilterExpenseModel.length,
@@ -273,7 +279,7 @@ class _HomePageState extends State<HomePage> {
                                                 color:
                                                     ColorsConstant.black_Color,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 22,
+                                                fontSize: 18,
                                               ),
                                             ),
                                             CTextWidget(
@@ -283,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                                                 color:
                                                     ColorsConstant.black_Color,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 22,
+                                                fontSize: 18,
                                               ),
                                             ),
                                           ],
@@ -298,6 +304,7 @@ class _HomePageState extends State<HomePage> {
                                         indent: 15),
                                     ListView.builder(
                                       shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
                                       itemCount:
                                           listFilterExpenseModel[parentIndex]
                                               .allExpenses
@@ -316,8 +323,8 @@ class _HomePageState extends State<HomePage> {
                                         print(filteredList);
                                         return ListTile(
                                           leading: Container(
-                                            height: 80,
-                                            width: 70,
+                                            height: 60,
+                                            width: 60,
                                             padding: const EdgeInsets.all(15),
                                             decoration: BoxDecoration(
                                                 borderRadius:
@@ -431,8 +438,8 @@ class _HomePageState extends State<HomePage> {
       var createdAt = allExpenses[i].eTimeSpand;
       var mDateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(createdAt));
 
-      var eachExpenseMonth = dateFormat.format(mDateTime);
-      var eachExpenseYear = dateFormat.format(mDateTime);
+      var eachExpenseMonth = monthFormat.format(mDateTime);
+      var eachExpenseYear = yearFormat.format(mDateTime);
 
       print('$eachExpenseMonth - $eachExpenseYear');
       var eachExpenseMonthYear = '$eachExpenseMonth - $eachExpenseYear';
@@ -447,23 +454,23 @@ class _HomePageState extends State<HomePage> {
       num totalExpAmt = 0;
       List<ExpenseModel> eachMonthExpenses = [];
 
-      for (ExpenseModel eachExpense in allExpenses) {
-        var createdAt = eachExpense.eTimeSpand;
+      for (int i = 0; i < allExpenses.length; i++) {
+        var createdAt = allExpenses[i].eTimeSpand;
         var mDateTime =
             DateTime.fromMillisecondsSinceEpoch(int.parse(createdAt));
-        var eachExpenseMonth = dateFormat.format(mDateTime);
-        var eachExpenseYear = dateFormat.format(mDateTime);
+        var eachExpenseMonth = monthFormat.format(mDateTime);
+        var eachExpenseYear = yearFormat.format(mDateTime);
 
         print('$eachExpenseMonth - $eachExpenseYear');
         var eachExpenseMonthYear = '$eachExpenseMonth - $eachExpenseYear';
 
         if (eachExpenseMonthYear == eachDate) {
-          eachMonthExpenses.add(eachExpense);
+          eachMonthExpenses.add(allExpenses[i]);
 
-          if (eachExpense.eType == 'Debit') {
-            totalExpAmt -= int.parse(eachExpense.eAmount);
+          if (allExpenses[i].eType == 'Debit') {
+            totalExpAmt -= int.parse(allExpenses[i].eAmount);
           } else {
-            totalExpAmt += int.parse(eachExpense.eAmount);
+            totalExpAmt += int.parse(allExpenses[i].eAmount);
           }
         }
       }
@@ -471,6 +478,61 @@ class _HomePageState extends State<HomePage> {
         title: eachDate,
         totalAmt: totalExpAmt.toString(),
         allExpenses: eachMonthExpenses,
+      ));
+    }
+    print(listFilterExpenseModel.length);
+  }
+
+  void filterExpenseYearWise({required List<ExpenseModel> allExpenses}) {
+    /// find the unique dates
+    listFilterExpenseModel.clear();
+    List<String> uniqueYears = [];
+
+    for (int i = 0; i < allExpenses.length; i++) {
+      var createdAt = allExpenses[i].eTimeSpand;
+      var mDateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(createdAt));
+
+/*
+      var eachExpenseMonth = dateFormat.format(mDateTime);
+*/
+      
+      var eachExpenseYear = yearFormat.format(mDateTime);
+
+
+    print(eachExpenseYear);
+      var eachExpenseMonthYear = eachExpenseYear; 
+
+
+      if (!uniqueYears.contains(eachExpenseYear)) {
+        uniqueYears.add(eachExpenseYear);
+      }
+      print(uniqueYears);
+    }
+
+    for (String eachYear in uniqueYears) {
+      num totalExpAmt = 0;
+      List<ExpenseModel> eachYearExpenses = [];
+
+      for (int i = 0; i < allExpenses.length; i++) {
+        var createdAt = allExpenses[i].eTimeSpand;
+        var mDateTime =
+            DateTime.fromMillisecondsSinceEpoch(int.parse(createdAt));
+        var eachExpenseYear = yearFormat.format(mDateTime);
+
+        if (eachExpenseYear == eachYear) {
+          eachYearExpenses.add(allExpenses[i]);
+
+          if (allExpenses[i].eType == 'Debit') {
+            totalExpAmt -= int.parse(allExpenses[i].eAmount);
+          } else {
+            totalExpAmt += int.parse(allExpenses[i].eAmount);
+          }
+        }
+      }
+      listFilterExpenseModel.add(FilterExpenseModel(
+        title: eachYear,
+        totalAmt: totalExpAmt.toString(),
+        allExpenses: eachYearExpenses,
       ));
     }
     print(listFilterExpenseModel.length);

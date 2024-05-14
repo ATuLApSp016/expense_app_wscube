@@ -72,7 +72,7 @@ class CustomTextField extends StatelessWidget {
               prefixIcon: Visibility(
                 visible: prefixIconImage != null,
                 child: Padding(
-                  padding: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(15),
                   child: Image.asset(
                     prefixIconImage.toString(),
                     width: 10,
